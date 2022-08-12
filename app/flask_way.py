@@ -6,16 +6,15 @@ import time
 from flask import Flask, jsonify
 from flask import request
 
-d = os.path.dirname
-PUBNUB_ROOT = d(d(d(os.path.dirname(os.path.abspath(__file__)))))
-sys.path.append(PUBNUB_ROOT)
-
 import pubnub as pn
 from pubnub import utils
 from pubnub.exceptions import PubNubException
 from pubnub.pnconfiguration import PNConfiguration
 from pubnub.pubnub import PubNub
 
+d = os.path.dirname
+PUBNUB_ROOT = d(d(d(os.path.dirname(os.path.abspath(__file__)))))
+sys.path.append(PUBNUB_ROOT)
 
 pn.set_stream_logger('pubnub', logging.DEBUG)
 logger = logging.getLogger("myapp")
@@ -25,10 +24,10 @@ app = Flask(__name__)
 pnconfig = PNConfiguration()
 pnconfig.subscribe_request_timeout = 10
 pnconfig.subscribe_key = "sub-c-33f55052-190b-11e6-bfbc-02ee2ddab7fe"
-pnconfig.publish_key = "pub-c-739aa0fc-3ed5-472b-af26-aca1b333ec52"
-pnconfig.uuid = "pubnub-demo-api-python-backend"
-DEFAULT_CHANNEL = "pubnub_demo_api_python_channel"
-EVENTS_CHANNEL = "pubnub_demo_api_python_events"
+# pnconfig.publish_key = "pub-c-739aa0fc-3ed5-472b-af26-aca1b333ec52"
+pnconfig.user_id = "market-order-app"
+DEFAULT_CHANNEL = "pubnub-market-orders"
+EVENTS_CHANNEL_NAME = "pubnub-market-orders"
 APP_KEY = utils.uuid()
 
 pubnub = PubNub(pnconfig)
