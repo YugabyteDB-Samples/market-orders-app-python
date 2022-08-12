@@ -37,7 +37,7 @@ class MarketOrderStreamSubscribeCallback(SubscribeCallback):
     def message(self, pubnub, message):
         # Handle new message stored in message.message
         print("Message payload: %s" % message.message)
-        # TODO: Call database insert method.
+        # TODO: Call database insert method - write_to_db
         # pubnub.unsubscribe().channels("someChannel").execute()
 
 
