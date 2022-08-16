@@ -4,10 +4,14 @@ from pubnub.callbacks import SubscribeCallback
 from pubnub.enums import PNStatusCategory
 from pubnub.pnconfiguration import PNConfiguration
 from pubnub.pubnub import PubNub
-from db import database_connection, write_to_db
+from db import database_connection, write_trade_to_db
+import random
 
 
 EVENTS_CHANNEL_NAME = "pubnub-market-orders"
+conn = database_connection()
+conn.set_session(autocommit=True)
+cur = conn.cursor()
 
 
 def pubnub_config():
@@ -37,10 +41,13 @@ class MarketOrderStreamSubscribeCallback(SubscribeCallback):
     def message(self, pubnub, message):
         # Handle new message stored in message.message
         print("Message payload: %s" % message.message)
-        # TODO: Call database insert method - write_to_db
-        # pubnub.unsubscribe().channels("someChannel").execute()
+        cur.execute('select id from public."User";')
+        user_ids = [record[0] for record in cur.fetchall()]
+        user_id = random.choice(user_ids)
+        write_trade_to_db(conn, message.message, user_id)
 
 
-pubnub = PubNub(pubnub_config())
+if __name__ == '__main__':
+    pubnub = PubNub(pubnub_config())
 pubnub.add_listener(MarketOrderStreamSubscribeCallback())
 pubnub.subscribe().channels(EVENTS_CHANNEL_NAME).execute()
