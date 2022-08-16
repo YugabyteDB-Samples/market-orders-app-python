@@ -26,7 +26,6 @@ def pubnub_config():
 
 class MarketOrderStreamSubscribeCallback(SubscribeCallback):
     def status(self, pubnub, status):
-        print("Status category", status.category)
         if status.category == PNStatusCategory.PNUnexpectedDisconnectCategory:
             print("Disconnect category", status.category)  # This event happens when connectivity is lost
             # TODO: Log this event
@@ -36,7 +35,8 @@ class MarketOrderStreamSubscribeCallback(SubscribeCallback):
             # Or just use the connected event to confirm you are subscribed for
             # UI / internal notifications, etc
             # TODO: Log this event
-            print("Connected category/Subscribe to", status.category)
+            subscribe_message = f"Connected category/Subscribe to {EVENTS_CHANNEL_NAME} channel"
+            print(subscribe_message)
 
     def message(self, pubnub, message):
         # Handle new message stored in message.message
