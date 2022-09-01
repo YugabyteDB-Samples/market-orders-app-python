@@ -7,13 +7,14 @@ load_dotenv()  # Load environment variables from .env file
 
 # Database connection configuration
 db_config = {
-        "host": getenv("DB_HOST", "us-west-2.32e262a9-a69d-4a0c-a55f-4d9ede43575b.aws.ybdb.io"),
-        "port": getenv("DB_PORT", "5433"),
-        "dbname": getenv("DB_NAME", "yugabyte"),
-        "user": getenv("DB_USER", "admin"),
-        "password": getenv("DB_PASSWORD", "9tz_zVt-2hjCu0STkIMZUmqOEbs80F")
-    }
-
+    "host": getenv(
+        "DB_HOST", "127.0.0.1"
+    ),
+    "port": getenv("DB_PORT", "5433"),
+    "dbname": getenv("DB_NAME", "yugabyte"),
+    "user": getenv("DB_USER", "admin"),
+    "password": getenv("DB_PASSWORD", "password"),
+}
 
 
 def database_connection():
@@ -28,17 +29,16 @@ def database_connection():
 
 def write_trade_to_db(connection, message, user_id):
     """Write a trade to the database"""
-    order_quantity = message['order_quantity']
-    trade_type = message['trade_type']
-    symbol = message['symbol']
+    order_quantity = message["order_quantity"]
+    trade_type = message["trade_type"]
+    symbol = message["symbol"]
     # trade_time = message['timestamp']
-    bid_price = message['bid_price']
-    insert_query = f'insert into public."Trade"(user_id, bid_price, order_quantity, trade_time, trade_type, symbol) values (\'{user_id}\',\'{bid_price}\',\'{order_quantity}\',NOW(),\'{trade_type}\',\'{symbol}\');'
+    bid_price = message["bid_price"]
+    insert_query = f"insert into public.\"Trade\"(user_id, bid_price, order_quantity, trade_time, trade_type, symbol) values ('{user_id}','{bid_price}','{order_quantity}',NOW(),'{trade_type}','{symbol}');"
     conn = database_connection()
     conn.set_session(autocommit=True)
     cur = conn.cursor()
     cur.execute(insert_query)
-    print(">>>>>>> Inserted trade into database")
     cur.close()
 
 
@@ -46,7 +46,7 @@ def init_db():
     """Initialize the database with default data"""
 
     # Read table schema from .sql file
-    create_sql_schema = Path('schema/schema.sql').read_text()
+    create_sql_schema = Path("schema/schema.sql").read_text()
 
     # Create the database connection.
     conn = database_connection()
