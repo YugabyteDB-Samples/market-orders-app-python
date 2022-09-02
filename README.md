@@ -11,8 +11,8 @@ Check [this blog post](https://www.yugabyte.com/blog/building-simple-application
 2. Run the following to install application dependencies (first time only):
 
 ```bash
-cd market-orders-app-python/app
-pip install -r ../requirements.txt
+$ cd market-orders-app-python/app/
+$ pip install -r ../requirements.txt
 ```
 
 3. Configure your environment variables in the .env file (create a .env file if it doesn't exist):
