@@ -56,21 +56,16 @@ def init_db():
     # Uncomment next line if you want to load data from `load_default_data.sql` and not from `seed_user_data.py`
     # load_default_data_query = Path("schema/queries/load_default_data.sql").read_text()
 
-    # Create the database connection.
     conn = database_connection()
     logging.info("Connecting to database...")
-    # Open a cursor to perform database operations.
-    # The default mode for psycopg2 is "autocommit=false".
     conn.set_session(autocommit=True)
     cur = conn.cursor()
 
-    # Create the table & insert new rows into the database table
     try:
         cur.execute(create_sql_schema_query)
         logging.info("Created table with default schema")
-        # Use the followingif you want load data from load_default_data.sql and not from `seed_user_data.py`
+        # Use the following if you want load data from load_default_data.sql and not from `seed_user_data.py`
         # cur.execute(load_default_data_query)
-        # logging.info("Inserted default user data")
         cur.close()
     except Exception as e:
         logging.error("Error executing query", e)
