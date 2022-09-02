@@ -1,6 +1,6 @@
-pubnub~=6.5.1
-psycopg2~=2.9.3
+faker~=14.0.0
+flask~=2.2.2
 psycopg2-binary~=2.9.3
+psycopg2~=2.9.3
+pubnub~=6.5.1
 python-dotenv~=0.20.0
-flask
-fastapi
