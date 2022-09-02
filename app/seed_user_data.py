@@ -12,11 +12,11 @@ def insert_user_data_to_db():
     """Insert initial user data into the database"""
     insert_query = 'INSERT INTO public."User"(first_name, last_name, email) VALUES '
     query_bind_values = ""
-    for i in range(3):
+    for user_count in range(5):
         first_name = fake.unique.first_name()
         last_name = fake.unique.last_name()
         email = f"{(first_name + last_name).lower()}@example.com"
-        if i < 1:
+        if user_count < 1:
             query_bind_values = f"('{first_name}','{last_name}','{email}')"
         else:
             query_bind_values = "".join(
