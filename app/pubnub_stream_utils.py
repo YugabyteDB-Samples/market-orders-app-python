@@ -1,3 +1,5 @@
+"""PubNub stream handler"""
+
 import logging
 import random
 
@@ -11,11 +13,14 @@ DEFAULT_EVENTS_CHANNEL_NAME = "pubnub-market-orders"
 
 
 class MarketOrderStreamSubscribeCallback(SubscribeCallback):
+    """Subscribe Callback handler for PubNub Market Order Stream"""
+
     def __init__(self, channel):
         super().__init__()
         self.channel = channel
 
     def status(self, pubnub, status):
+        """Handle status events"""
         if status.category == PNStatusCategory.PNUnexpectedDisconnectCategory:
             # This event happens when connectivity is lost
             logging.error(">>>>>>> Unexpected disconnection!")
@@ -30,7 +35,7 @@ class MarketOrderStreamSubscribeCallback(SubscribeCallback):
             logging.info(subscribe_message)
 
     def message(self, pubnub, message):
-        # Handle new message stored in message.message
+        """Handle new message stored in message.message"""
         logging.info(f"Message payload : {message.message}")
         conn = database_connection()
         conn.set_session(autocommit=True)
@@ -43,6 +48,7 @@ class MarketOrderStreamSubscribeCallback(SubscribeCallback):
 
 
 def pubnub_config():
+    """Returns the pubnub configuration"""
     pnconfig = PNConfiguration()
     pnconfig.subscribe_request_timeout = 10
     pnconfig.subscribe_key = "sub-c-4377ab04-f100-11e3-bffd-02ee2ddab7fe"
@@ -52,6 +58,7 @@ def pubnub_config():
 
 
 def ingest_pubnub_stream_data(**kwargs):
+    """Ingest data from pubnub stream"""
     events_channel_name = kwargs.get("channel")
     pubnub = kwargs.get("pubnub_obj")
     events_channel_name = (

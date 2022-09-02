@@ -1,3 +1,5 @@
+"""Flask app for PubNub Market Order Stream"""
+
 import logging
 import threading
 
@@ -21,11 +23,13 @@ logger.info("SDK Version: %s", pubnub.SDK_VERSION)
 
 @app.route("/app_key")
 def app_key():
+    """Returns the unique app key"""
     return {"app_key": APP_KEY}
 
 
 @app.route("/subscription/add")
 def subscription_add():
+    """Adds a new subscription"""
     channel = request.args.get("channel")
     if channel is None:
         return jsonify({"error": "Channel missing"}), 500
@@ -35,6 +39,7 @@ def subscription_add():
 
 @app.route("/subscription/remove")
 def subscription_remove():
+    """Removes a subscription"""
     channel = request.args.get("channel")
     if channel is None:
         return jsonify({"error": "Channel missing"}), 500
@@ -44,11 +49,13 @@ def subscription_remove():
 
 @app.route("/subscription/list")
 def subscription_list():
+    """Returns a list of all subscriptions"""
     return jsonify({"subscribed_channels": pubnub.get_subscribed_channels()}), 200
 
 
 @app.route("/ingeststreamdata")
 def ingest_stream_data():
+    """Ingests trade data from pubnub stream and writes to database as per channel"""
     channel = request.args.get("channel")
     if channel is None:
         return jsonify({"error": "Channel missing"}), 500
@@ -62,6 +69,7 @@ def ingest_stream_data():
 
 @app.route("/tradestats")
 def get_trade_stats():
+    """Returns trade stats"""
     conn = database_connection()
     conn.set_session(autocommit=True)
     cur = conn.cursor()
