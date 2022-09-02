@@ -12,7 +12,7 @@ from db import database_connection
 from pubnub_stream_utils import ingest_pubnub_stream_data, pubnub_config
 
 pn.set_stream_logger("pubnub", logging.DEBUG)
-logger = logging.getLogger("myapp")
+logger = logging.getLogger("market-order-app")
 
 app = Flask(__name__)
 APP_KEY = utils.uuid()
