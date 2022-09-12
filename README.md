@@ -8,9 +8,11 @@ Check [this blog post](https://www.yugabyte.com/blog/building-simple-application
 
 1. [Sign up for YugabyteDB Managed](https://docs.yugabyte.com/preview/yugabyte-cloud/cloud-quickstart/) and create a free cluster.  Additionally, follow this [guide](https://docs.yugabyte.com/preview/yugabyte-cloud/cloud-quickstart/cloud-build-apps/cloud-add-ip/#download-your-cluster-certificate) to download your cluster CA certificate and set up your cluster IP allow list.
 
-2. Run the following to install application dependencies (first time only):
+2. Run the following to create [virtual environment](https://docs.python.org/3/glossary.html#term-virtual-environment) for app and install application dependencies (first time only):
 
 ```bash
+$ python3 -m venv market_order_app_venv  # create the virtual environment   
+$ source market_order_app_venv/bin/activate  # activate the virtual environment
 $ cd market-orders-app-python/app/
 $ pip install -r ../requirements.txt
 ```
