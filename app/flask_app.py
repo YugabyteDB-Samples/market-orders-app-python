@@ -4,15 +4,19 @@ import logging
 import threading
 
 import pubnub as pn
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, render_template, request
 from pubnub import utils
 from pubnub.pubnub import PubNub
 
 from db import database_connection
-from pubnub_stream_utils import ingest_pubnub_stream_data, pubnub_config
+from pubnub_stream_utils import (
+    DEFAULT_EVENTS_CHANNEL_NAME,
+    ingest_pubnub_stream_data,
+    pubnub_config,
+)
 
 pn.set_stream_logger("pubnub", logging.DEBUG)
-logger = logging.getLogger("market-order-app")
+logger = logging.getLogger("myapp")
 
 app = Flask(__name__)
 APP_KEY = utils.uuid()
@@ -21,10 +25,19 @@ pubnub = PubNub(pubnub_config())
 logger.info("SDK Version: %s", pubnub.SDK_VERSION)
 
 
+@app.route("/")
+@app.route("/index")
+def home():
+    """Returns the app home page"""
+    return render_template(
+        "index.html", title="Home page", channel=DEFAULT_EVENTS_CHANNEL_NAME
+    )
+
+
 @app.route("/app_key")
 def app_key():
     """Returns the unique app key"""
-    return {"app_key": APP_KEY}
+    return jsonify({"app_key": APP_KEY}), 200
 
 
 @app.route("/subscription/add")
