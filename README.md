@@ -11,7 +11,7 @@ Check [this blog post](https://www.yugabyte.com/blog/building-simple-application
 2. Run the following to create [virtual environment](https://docs.python.org/3/glossary.html#term-virtual-environment) for app and install application dependencies (first time only):
 
 ```bash
-$ python3 -m venv market_order_app_venv  # create the virtual environment   
+$ python3 -m venv market_order_app_venv  # create the virtual environment
 $ source market_order_app_venv/bin/activate  # activate the virtual environment
 $ cd market-orders-app-python/app/
 $ pip install -r ../requirements.txt
@@ -62,8 +62,8 @@ You can see the app running on [http://127.0.0.1:5001](http://127.0.0.1:5001)
     Here is the screenshot of how to call the API request in Postman.
     - Subscribe to a channel
     ![Subscribe to the channel](/Docs/images/add_subscription.png)
-    - Unsubscribe from a channel
-    ![Subscribe to the channel](/Docs/images/remove_subscription.png)
+    - Get Trade stats
+    ![Get Trade stats](/Docs/images/trade_stats.png)
 
 
 ## Run using YugabyteDB locally
