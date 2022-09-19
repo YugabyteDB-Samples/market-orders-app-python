@@ -1,8 +1,8 @@
-# Market Orders Steaming to YugabyteDB with Python
+# Market Orders Streaming to YugabyteDB with Python
 
 This application subscribes to the [PubNub Market Orders Stream](https://www.pubnub.com/developers/realtime-data-streams/financial-securities-market-orders/) via Python client and stores the market trades in YugabyteDB.
 
-Check [this blog post](https://www.yugabyte.com/blog/building-simple-application-yugabytedb-prisma/) for a quick app overview.
+Check [this blog post](https://dev.to/yugabyte/building-an-application-with-yugabytedb-and-flask-1eal) for a quick app overview.
 
 ## Run using YugabyteDB Managed
 
