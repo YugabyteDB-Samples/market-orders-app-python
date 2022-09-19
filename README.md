@@ -60,9 +60,9 @@ You can see the app running on [http://127.0.0.1:5001](http://127.0.0.1:5001)
     - Get Trade stats - `curl --location --request GET 'http://127.0.0.1:5001/tradestats'`
 
     Here is the screenshot of how to call the API request in Postman.
-    - Subscribe to a channel
+    - **Subscribe to a channel:**
     ![Subscribe to the channel](/Docs/images/add_subscription.png)
-    - Get Trade stats
+    - **Get Trade stats:**
     ![Get Trade stats](/Docs/images/trade_stats.png)
 
 
